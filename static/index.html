@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PERSONALIZE FSH</title>
+    <!-- 引入 jQuery 库 -->
+    <script src="/static/jquery-3.7.1.min.js"></script>
+    <script src="/static/jquery.serializejson.js"></script>
+    <script src="/static/script.js"></script>
+    <script src="/static/jquery.validate.min.js"></script>
+    <script src="/static/messages_zh.js"></script>
+</head>
+<body>
+    <h1>预测起始剂量</h1>
+    <form id="prediction-form">
+        <label for="female-age">女方年龄<span style="color: red;">*</span>:</label>
+        <input type="number" id="female-age" name="female-age:number" min="0" max="100" required /><br><br>
+
+        <label for="AFC">AFC<span style="color: red;">*</span>:</label>
+        <input type="number" id="AFC" name="AFC:number" min="0" required  /><br><br>
+
+        <label for="bFSH">bFSH<span style="color: red;">*</span>:</label>
+        <input type="number" id="bFSH" name="bFSH:number" min="0" required /><br><br>
+
+        <label for="AMH">AMH<span style="color: red;">*</span>:</label>
+        <input type="number" id="AMH" name="AMH:number" min="0" required  /><br><br>
+
+        <label for="stimulation-protocol">促排方案:</label>
+        <select id="stimulation-protocol" name="stimulation-protocol:number">
+            <option value="1.0">长方案</option>
+            <option value="2.0">拮抗剂</option>
+        </select><br><br>
+
+        <label for="height">身高:</label>
+        <input type="number" id="height" name="height:number" min="0"/><br><br>
+
+        <label for="weight">体重:</label>
+        <input type="number" id="weight" name="weight:number" min="0"/><br><br>
+
+        <label for="BMI">BMI:</label>
+        <input type="number" id="BMI" name="BMI:number" min="0" disabled/><br><br>
+
+        <label for="bLH">bLH:</label>
+        <input type="number" id="bLH" name="bLH:number" min="0"/><br><br>
+
+        <label for="E2">E2:</label>
+        <input type="number" id="E2" name="E2:number" min="0"/><br><br>
+
+        <label for="FSH_LH">FSH/LH:</label>
+        <input type="number" id="FSH_LH" name="FSH_LH:number" min="0" disabled/><br><br>
+
+        <label for="male-age">男方年龄:</label>
+        <input type="number" id="male-age" name="male-age:number" min="0" max="100"/><br><br>
+
+        <label for="past-pregnancies">既往活产次数:</label>
+        <input type="number" id="past-pregnancies" name="past-pregnancies:number" min="0" step="1" /><br><br>
+
+        <label for="total_oocytes">获得卵子数<span style="color: red;">*</span>:</label>
+        <input type="number" id="total_oocytes" name="total_oocytes:number" min="0" max="30" required/><br><br>
+
+        <button type="button" id="submit-button">提交</button>
+    </form>
+    <div>初始剂量：<span id="prediction-result"></span></div>
+
+    <h1>预测卵子总数与起始剂量</h1>
+    <form id="s1s2-prediction-form">
+        <label for="female-age3">女方年龄<span style="color: red;">*</span>:</label>
+        <input type="number" id="female-age3" name="female-age:number" min="0" max="100" required /><br><br>
+
+        <label for="AFC3">AFC<span style="color: red;">*</span>:</label>
+        <input type="number" id="AFC3" name="AFC:number" min="0" required  /><br><br>
+
+        <label for="bFSH3">bFSH<span style="color: red;">*</span>:</label>
+        <input type="number" id="bFSH3" name="bFSH:number" min="0" required /><br><br>
+
+        <label for="AMH3">AMH<span style="color: red;">*</span>:</label>
+        <input type="number" id="AMH3" name="AMH:number" min="0" required  /><br><br>
+
+        <label for="stimulation-protocol3">促排方案:</label>
+        <select id="stimulation-protocol3" name="stimulation-protocol:number">
+            <option value="1.0">长方案</option>
+            <option value="2.0">拮抗剂</option>
+        </select><br><br>
+
+        <label for="height3">身高:</label>
+        <input type="number" id="height3" name="height:number" min="0"/><br><br>
+
+        <label for="weight3">体重:</label>
+        <input type="number" id="weight3" name="weight:number" min="0"/><br><br>
+
+        <label for="BMI3">BMI:</label>
+        <input type="number" id="BMI3" name="BMI:number" min="0" disabled/><br><br>
+
+        <label for="bLH3">bLH:</label>
+        <input type="number" id="bLH3" name="bLH:number" min="0"/><br><br>
+
+        <label for="E23">E2:</label>
+        <input type="number" id="E23" name="E2:number" min="0"/><br><br>
+
+        <label for="FSH_LH3">FSH/LH:</label>
+        <input type="number" id="FSH_LH3" name="FSH_LH:number" min="0" disabled/><br><br>
+
+        <label for="male-age3">男方年龄:</label>
+        <input type="number" id="male-age3" name="male-age:number" min="0" max="100"/><br><br>
+
+        <label for="past-pregnancies3">既往活产次数:</label>
+        <input type="number" id="past-pregnancies3" name="past-pregnancies:number" min="0" step="1" /><br><br>
+
+        <label for="oocytes_transfer3">可移植胚胎数<span style="color: red;">*</span>:</label>
+        <select id="oocytes_transfer3" name="oocytes_transfer:number">
+            <option value="1.0" selected>1</option>
+            <option value="2.0">2</option>
+            <option value="3.0">3</option>
+            <option value="4.0">4</option>
+            <option value="5.0">5</option>
+            <option value="6.0">6</option>
+        </select><br><br>
+        
+        <label for="total_oocytes_lt25">卵子总数是否≤25:</label>
+        <select id="total_oocytes_lt25" name="total_oocytes_lt25:number" disabled>
+            <option value="1.0" selected>是</option>
+            <option value="0.0">否</option>
+        </select><br><br>
+
+        <label for="is_OHSS">是否中重度OHSS:</label>
+        <select id="is_OHSS" name="is_OHSS:number" disabled>
+            <option value="1.0">是</option>
+            <option value="0.0" selected>否</option>
+        </select><br><br>
+
+        <button type="button" id="s1s2-submit-button">提交</button>
+    </form>
+    <div>卵子总数：<span id="s1s2_eggs_result"></span></div>
+    <div>初始剂量：<span id="s1s2_fsh_result"></span></div>
+
+    <h1>POvaStim方案预测卵子数与起始剂量</h1>
+    <form id="dual-prediction-form">
+        <label for="female-age2">女方年龄<span style="color: red;">*</span>:</label>
+        <input type="number" id="female-age2" name="female-age:number" min="0" max="100" required /><br><br>
+
+        <label for="AFC2">AFC<span style="color: red;">*</span>:</label>
+        <input type="number" id="AFC2" name="AFC:number" min="0" required  /><br><br>
+
+        <label for="bFSH2">bFSH<span style="color: red;">*</span>:</label>
+        <input type="number" id="bFSH2" name="bFSH:number" min="0" required /><br><br>
+
+        <label for="AMH2">AMH<span style="color: red;">*</span>:</label>
+        <input type="number" id="AMH2" name="AMH:number" min="0" required  /><br><br>
+
+        <label for="stimulation-protocol2">促排方案:</label>
+        <select id="stimulation-protocol2" name="stimulation-protocol:number">
+            <option value="1.0">长方案</option>
+            <option value="2.0">拮抗剂</option>
+        </select><br><br>
+
+        <label for="height2">身高:</label>
+        <input type="number" id="height2" name="height:number" min="0" /><br><br>
+
+        <label for="weight2">体重:</label>
+        <input type="number" id="weight2" name="weight:number" min="0"/><br><br>
+
+        <label for="BMI2">BMI:</label>
+        <input type="number" id="BMI2" name="BMI:number" min="0" disabled/><br><br>
+
+        <label for="bLH2">bLH:</label>
+        <input type="number" id="bLH2" name="bLH:number" min="0"/><br><br>
+
+        <label for="E22">E2:</label>
+        <input type="number" id="E22" name="E2:number" min="0"/><br><br>
+
+        <label for="FSH_LH2">FSH/LH:</label>
+        <input type="number" id="FSH_LH2" name="FSH_LH:number"disabled/><br><br>
+
+        <label for="male-age2">男方年龄:</label>
+        <input type="number" id="male-age2" name="male-age:number" min="0" max="100"/><br><br>
+
+        <label for="past-pregnancies2">既往活产次数:</label>
+        <input type="number" id="past-pregnancies2" name="past-pregnancies:number" min="0" step="1" /><br><br>
+
+        <button type="button" id="dual-submit-button">提交</button>
+    </form>
+    <div>
+        卵子数：<span id="dual-egg"></span><br>
+        初始剂量：<span id="dual-fsh"></span>
+    </div>
+</body>
+</html>
