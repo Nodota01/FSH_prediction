@@ -1,4 +1,9 @@
 $(document).ready(function() {
+    //为label和input装饰
+    $("label").addClass("form-label")
+    $("input").addClass("form-control")
+    $("select").addClass("form-select")
+
     $("#submit-button").click(function(event) {
         if(!$("#prediction-form").valid()){
             return;
@@ -41,17 +46,17 @@ $(document).ready(function() {
                 $("#dual-fsh").html(response.fsh);
             },
             error: function(xhr, status, error) {
-                $("#prediction-result").html("Error: " + error);
+                $("#dual-egg").html("Error: " + error);
             }
         });
     });
 
     $("#s1s2-submit-button").click(function(event) {
-        if(!$("#s1s2-prediction-form").valid()){
+        if(!$("#prop-prediction-form").valid()){
             return;
         }        
         // 使用 serializeJSON 序列化表单数据为 JSON 对象
-        var requestData = $("#s1s2-prediction-form").serializeJSON();
+        var requestData = $("#prop-prediction-form").serializeJSON();
         // 将 JSON 对象中的空值移除
         requestData = removeEmptyValues(requestData);
         // 调用接口
@@ -65,7 +70,38 @@ $(document).ready(function() {
                 $("#s1s2_fsh_result").html(response.fsh);
             },
             error: function(xhr, status, error) {
-                $("#prediction-result").html("Error: " + error);
+                $("#s1s2_eggs_result").html("Error: " + error);
+            }
+        });
+    });
+
+    $("#prop-submit-button").click(function(event) {
+        if(!$("#prop-prediction-form").valid()){
+            return;
+        }
+        var requestData = $("#prop-prediction-form").serializeJSON();
+        requestData = removeEmptyValues(requestData);
+        delete requestData['oocytes_transfer']
+        $.ajax({
+            type: "POST",
+            url: "/api/prop",
+            contentType: "application/json",
+            data: JSON.stringify(requestData),
+            success: function(response) {
+                var strs = ['可移植胚胎数=0', '可移植胚胎数=1', '可移植胚胎数≥1']
+                var maxIndex = 0;
+                var max = response.probability[0];
+                for(var i = 1; i < response.probability.length; i++){
+                    if(response.probability[i] > max){
+                        maxIndex = i;
+                        max = response.probability[i];
+                    }
+                }
+                $('#prop_result_str').html(strs[maxIndex])
+                $('#prop_result_proba').html(max)
+            },
+            error: function(xhr, status, error) {
+                $("#prop_result").html("Error: " + error);
             }
         });
     });
@@ -136,6 +172,28 @@ $(document).ready(function() {
             $("#FSH_LH3").val(FSH_LH.toFixed(2));
         } else {
             $("#FSH_LH3").val("");
+        }
+    });
+
+    // 监听身高和体重输入框的变化事件
+    $("#height4, #weight4").on("input", function() {
+        var height = parseFloat($("#height4").val());
+        var weight = parseFloat($("#weight4").val());
+        if (!isNaN(height) && !isNaN(weight)) {
+            var BMI = weight / ((height / 100) * (height / 100));
+            $("#BMI4").val(BMI.toFixed(2));
+        } else {
+            $("#BMI4").val("");
+        }
+    });
+    $("#bFSH4, #bLH4").on("input", function() {
+        var bFSH = parseFloat($("#bFSH4").val());
+        var bLH = parseFloat($("#bLH4").val());
+        if (!isNaN(bFSH) && !isNaN(bLH)) {
+            var FSH_LH = bFSH / bLH;
+            $("#FSH_LH4").val(FSH_LH.toFixed(2));
+        } else {
+            $("#FSH_LH4").val("");
         }
     });
 });

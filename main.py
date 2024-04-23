@@ -14,6 +14,7 @@ dual_model_1 = joblib.load(f'models/dual_regression_1.joblib')
 dual_model_2 = joblib.load(f'models/dual_regression_2.joblib')
 s1s2_model_1 = joblib.load(f'models/s1s2_regression_s1.joblib')
 s1s2_model_2 = joblib.load(f'models/s1s2_regression_s2.joblib')
+prop_class_model = joblib.load(f'models/prop_class_noGn.joblib')
 
 class SingleInputData(BaseModel):
     '''
@@ -72,6 +73,26 @@ class S1S2InputData(BaseModel):
     oocytes_transfer: Optional[float] = Field(default=1., description="可移植胚胎数")
     is_OHSS: Optional[float] = Field(default=0., description="是否中重度OHSS")
     total_oocytes_lt25: Optional[float] = Field(default=1., description="卵子总数是否≤25")
+    
+class PropClassInputData(BaseModel):
+    '''
+    默认为中位数
+    '''
+    female_age: Optional[float] = Field(default=35., description="女方年龄")
+    AFC: Optional[float] = Field(default=12., description="AFC")
+    bFSH: Optional[float] = Field(default=5.63, description="bFSH")
+    AMH: Optional[float] = Field(default=3.23, description="AMH")
+    stimulation_protocol: Optional[float] = Field(default=1., description="促排方案")
+    height: Optional[float] = Field(default=158.0, description="身高(cm)")
+    weight: Optional[float] = Field(default=53.0, description="体重(kg)")
+    BMI: Optional[float] = Field(default=20.96, description="BMI")
+    bLH: Optional[float] = Field(default=3.205, description="bLH")
+    E2: Optional[float] = Field(default=31., description="E2")
+    FSH_LH: Optional[float] = Field(default=1.799004, description="FSH/LH")
+    male_age: Optional[float] = Field(default=33, description="男方年龄")
+    past_pregnancies: Optional[float] = Field(default=0., description="既往活产次数")
+    is_OHSS: Optional[float] = Field(default=0., description="是否中重度OHSS")
+    total_oocytes_lt25: Optional[float] = Field(default=1., description="卵子总数是否≤25")
 
 # 将静态文件目录映射到"/static"
 app.mount("/static", StaticFiles(directory="static"), name="static")
@@ -114,3 +135,12 @@ async def single(input_data: S1S2InputData):
     does = s1s2_model_2.predict(input)
     return {"total_eggs": f"{total_eggs[0]:.0f}",
             "fsh":f"{does[0]:.2f}"}
+    
+@app.post("/api/prop")
+async def prop(input_data: PropClassInputData):
+    input_list = [getattr(input_data, field) for field in  input_data.__fields__]
+    input = np.array([input_list])
+    # 预测可移植胚胎数概率
+    probability = prop_class_model.predict_proba(input)[0]
+    result = [np.round(p * 100, 2) for p in probability]
+    return {"probability": result}
