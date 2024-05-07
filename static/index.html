@@ -18,6 +18,10 @@
             color: red;
             font-weight: bold;
         }
+        .custom-tooltip {
+            --bs-tooltip-bg: var(--bd-violet-bg);
+            --bs-tooltip-color: var(--bs-white);
+        }
     </style>
 </head>
 
@@ -138,6 +142,10 @@
             </select><br>
 
             <button type="button" class="btn btn-primary" id="prop-submit-button">预测概率</button>
+            <button type="button" class="btn btn-secondary m-1"
+                data-bs-toggle="tooltip" data-bs-placement="top"
+                data-bs-title="根据基础生理指标预测可移植胚胎数概率，展示最高概率类别">?</button>
+    
 
             <div>预测结果(三类,=0,=1,≥2)：<span id="prop_result"><span id="prop_result_str"></span>概率<span
                 id="prop_result_proba"></span>%</span></div><br>
@@ -153,6 +161,9 @@
             </select><br>
 
             <button type="button" class="btn btn-primary" id="s1s2-submit-button">预测初始剂量</button>
+            <button type="button" class="btn btn-secondary m-1"
+                data-bs-toggle="tooltip" data-bs-placement="top"
+                data-bs-title="第一步：模型1根据生理指标和输入的限制（副作用和可以移植胚胎数等）预测卵子总数。第二步：模型2根据模型1的输出和生理指标预测起始Gn剂量">?</button>
             <div>卵子总数：<span id="s1s2_eggs_result"></span></div>
             <div>初始剂量：<span id="s1s2_fsh_result"></span></div>
         </form>

@@ -1,4 +1,6 @@
 $(document).ready(function() {
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
     //为label和input装饰
     $("label").addClass("form-label")
     $("input").addClass("form-control")
@@ -88,7 +90,7 @@ $(document).ready(function() {
             contentType: "application/json",
             data: JSON.stringify(requestData),
             success: function(response) {
-                var strs = ['可移植胚胎数=0', '可移植胚胎数=1', '可移植胚胎数≥1']
+                var strs = ['可移植胚胎数=0', '可移植胚胎数=1', '可移植胚胎数≥2']
                 var maxIndex = 0;
                 var max = response.probability[0];
                 for(var i = 1; i < response.probability.length; i++){
