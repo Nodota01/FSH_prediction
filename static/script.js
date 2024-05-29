@@ -108,6 +108,61 @@ $(document).ready(function() {
         });
     });
 
+    $("#submit_pos_form").click(function(event) {
+        if(!$("#pos_prediction_form").valid()){
+            return;
+        }
+        var requestData = $("#pos_prediction_form").serializeJSON();
+        console.log(requestData);
+        requestData = removeEmptyValues(requestData);
+        console.log(requestData);
+        $.ajax({
+            type: "POST",
+            url: "/api/pos1",
+            contentType: "application/json",
+            data: JSON.stringify(requestData),
+            success: function(response) {
+                console.log("pos1");
+                console.log(response);
+                $('#pos_result_form tr').each(function(index) {
+                    $(this).find('td').eq(0).text(response.result[index])
+                });
+            },
+            error: function(xhr, status, error) {
+            }
+        });
+        $.ajax({
+            type: "POST",
+            url: "/api/pos2",
+            contentType: "application/json",
+            data: JSON.stringify(requestData),
+            success: function(response) {
+                console.log("pos2");
+                console.log(response);
+                $('#pos_result_form tr').each(function(index) {
+                    $(this).find('td').eq(1).text(response.result[index])
+                });
+            },
+            error: function(xhr, status, error) {
+            }
+        });
+        $.ajax({
+            type: "POST",
+            url: "/api/pos3",
+            contentType: "application/json",
+            data: JSON.stringify(requestData),
+            success: function(response) {
+                console.log("pos3");
+                console.log(response);
+                $('#pos_result_form tr').each(function(index) {
+                    $(this).find('td').eq(2).text(response.result[index])
+                });
+            },
+            error: function(xhr, status, error) {
+            }
+        });
+    });
+
     // 监听身高和体重输入框的变化事件
     $("#height, #weight").on("input", function() {
         var height = parseFloat($("#height").val());
@@ -196,6 +251,28 @@ $(document).ready(function() {
             $("#FSH_LH4").val(FSH_LH.toFixed(2));
         } else {
             $("#FSH_LH4").val("");
+        }
+    });
+
+    // 监听身高和体重输入框的变化事件
+    $("#heightp, #weightp").on("input", function() {
+        var height = parseFloat($("#heightp").val());
+        var weight = parseFloat($("#weightp").val());
+        if (!isNaN(height) && !isNaN(weight)) {
+            var BMI = weight / ((height / 100) * (height / 100));
+            $("#BMIp").val(BMI.toFixed(2));
+        } else {
+            $("#BMIp").val("");
+        }
+    });
+    $("#bFSHp, #bLHp").on("input", function() {
+        var bFSH = parseFloat($("#bFSHp").val());
+        var bLH = parseFloat($("#bLHp").val());
+        if (!isNaN(bFSH) && !isNaN(bLH)) {
+            var FSH_LH = bFSH / bLH;
+            $("#FSH_LHp").val(FSH_LH.toFixed(2));
+        } else {
+            $("#FSH_LHp").val("");
         }
     });
 });

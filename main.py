@@ -15,6 +15,9 @@ dual_model_2 = joblib.load(f'models/dual_regression_2.joblib')
 s1s2_model_1 = joblib.load(f'models/s1s2_regression_s1.joblib')
 s1s2_model_2 = joblib.load(f'models/s1s2_regression_s2.joblib')
 prop_class_model = joblib.load(f'models/prop_class_noGn.joblib')
+pos_model_1 = joblib.load(f'models/pos_model_1.joblib')
+pos_model_2 = joblib.load(f'models/pos_model_2.joblib')
+pos_model_3 = joblib.load(f'models/pos_model_3.joblib')
 
 class SingleInputData(BaseModel):
     '''
@@ -93,7 +96,61 @@ class PropClassInputData(BaseModel):
     past_pregnancies: Optional[float] = Field(default=0., description="既往活产次数")
     is_OHSS: Optional[float] = Field(default=0., description="是否中重度OHSS")
     total_oocytes_lt25: Optional[float] = Field(default=1., description="卵子总数是否≤25")
+    
+class PosModel1InputData(BaseModel):
+    '''
+    正向预测模型Model 1
+    起始Gn剂量→卵子总数
+    '''
+    female_age: Optional[float] = Field(default=35., description="女方年龄")
+    AFC: Optional[float] = Field(default=11., description="AFC")
+    bFSH: Optional[float] = Field(default=5.9, description="bFSH")
+    AMH: Optional[float] = Field(default=2.5, description="AMH")
+    stimulation_protocol: Optional[float] = Field(default=2., description="促排方案")
+    weight: Optional[float] = Field(default=55.0, description="体重(kg)")
+    bLH: Optional[float] = Field(default=2.95, description="bLH")
+    E2: Optional[float] = Field(default=32., description="E2")
+    past_pregnancies: Optional[float] = Field(default=0., description="既往活产次数")
+    male_age: Optional[float] = Field(default=37, description="男方年龄")
+    PGT_evidence : Optional[float] = Field(default=6., description="PGT指征")
+    
+    
+class PosModel2InputData(BaseModel):
+    '''
+    正向预测模型Model 2
+    起始Gn剂量→可移植胚胎数
+    '''
+    female_age: Optional[float] = Field(default=35., description="女方年龄")
+    AFC: Optional[float] = Field(default=11., description="AFC")
+    bFSH: Optional[float] = Field(default=5.9, description="bFSH")
+    AMH: Optional[float] = Field(default=2.5, description="AMH")
+    stimulation_protocol: Optional[float] = Field(default=2., description="促排方案")
+    E2: Optional[float] = Field(default=32., description="E2")
+    FSH_LH: Optional[float] = Field(default=1.98, description="FSH/LH")
+    past_pregnancies: Optional[float] = Field(default=0., description="既往活产次数")
+    male_age: Optional[float] = Field(default=37, description="男方年龄")
+    is_PCOS : Optional[float] = Field(default=0., description="是否PCOS")
+    PGT_evidence : Optional[float] = Field(default=6., description="PGT指征")
 
+class PosModel3InputData(BaseModel):
+    '''
+    正向预测模型Model 3
+    起始Gn剂量→OHSS概率
+    '''
+    female_age: Optional[float] = Field(default=35., description="女方年龄")
+    AFC: Optional[float] = Field(default=11., description="AFC")
+    bFSH: Optional[float] = Field(default=5.9, description="bFSH")
+    AMH: Optional[float] = Field(default=2.5, description="AMH")
+    stimulation_protocol: Optional[float] = Field(default=2., description="促排方案")
+    height: Optional[float] = Field(default=158.0, description="身高(cm)")
+    weight: Optional[float] = Field(default=55.0, description="体重(kg)")
+    BMI: Optional[float] = Field(default=21.7, description="BMI")
+    bLH: Optional[float] = Field(default=2.95, description="bLH")
+    E2: Optional[float] = Field(default=32., description="E2")
+    FSH_LH: Optional[float] = Field(default=1.98, description="FSH/LH")
+    male_age: Optional[float] = Field(default=37, description="男方年龄")
+    PGT_evidence : Optional[float] = Field(default=6., description="PGT指征")
+    
 # 将静态文件目录映射到"/static"
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
@@ -144,3 +201,42 @@ async def prop(input_data: PropClassInputData):
     probability = prop_class_model.predict_proba(input)[0]
     result = [np.round(p * 100, 2) for p in probability]
     return {"probability": result}
+
+@app.post("/api/pos1")
+async def prop(input_data: PosModel1InputData):
+    '''
+    正向预测模型1
+    '''
+    input_list = [getattr(input_data, field) for field in  input_data.__fields__]
+    input_list.append(0)
+    gn_doses = np.arange(75, 476, 25, float)
+    input = np.tile(np.array(input_list), (len(gn_doses), 1))
+    input[:, len(input_list) - 1] = gn_doses
+    result = pos_model_1.predict(input)
+    return {"result": np.round(result).astype(int).tolist()}
+
+@app.post("/api/pos2")
+async def prop(input_data: PosModel2InputData):
+    '''
+    正向预测模型2
+    '''
+    input_list = [getattr(input_data, field) for field in  input_data.__fields__]
+    input_list.append(0)
+    gn_doses = np.arange(75, 476, 25, float)
+    input = np.tile(np.array(input_list), (len(gn_doses), 1))
+    input[:, len(input_list) - 1] = gn_doses
+    result = pos_model_2.predict(input)
+    return {"result": np.round(result).astype(int).tolist()}
+
+@app.post("/api/pos3")
+async def prop(input_data: PosModel3InputData):
+    '''
+    正向预测模型3
+    '''
+    input_list = [getattr(input_data, field) for field in  input_data.__fields__]
+    input_list.append(0)
+    gn_doses = np.arange(75, 476, 25, float)
+    input = np.tile(np.array(input_list), (len(gn_doses), 1))
+    input[:, len(input_list) - 1] = gn_doses
+    result = pos_model_3.predict(input)
+    return {"result": result.tolist()}

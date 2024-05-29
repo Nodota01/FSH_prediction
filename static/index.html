@@ -30,6 +30,178 @@
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
     <div class="container m-3">
+        <h1>正向预测</h1>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md">
+                        <form id="pos_prediction_form" class="m-3">
+                            <label for="female_agep">女方年龄<span style="color: red;">*</span>:</label>
+                            <input type="number" id="female_agep" name="female_age:number" min="21" max="46" required /><br>
+                
+                            <label for="AFCp">AFC<span style="color: red;">*</span>:</label>
+                            <input type="number" id="AFCp" name="AFC:number" min="0" max="76" required /><br>
+                
+                            <label for="bFSHp">bFSH<span style="color: red;">*</span>:</label>
+                            <input type="number" id="bFSHp" name="bFSH:number" min="1.77" max="24.56" required /><br>
+                
+                            <label for="AMHp">AMH<span style="color: red;">*</span>:</label>
+                            <input type="number" id="AMHp" name="AMH:number" min="0.05" max="23.11" required /><br>
+                
+                            <label for="stimulation_protocolp">促排方案:</label>
+                            <select id="stimulation_protocolp" name="stimulation_protocol:number">
+                                <option value="1.0">长方案</option>
+                                <option value="2.0">拮抗剂</option>
+                            </select><br>
+                
+                            <label for="heightp">身高:</label>
+                            <input type="number" id="heightp" name="height:number" min="142" max="200" /><br>
+                
+                            <label for="weightp">体重:</label>
+                            <input type="number" id="weightp" name="weight:number" min="36" max="100" /><br>
+                
+                            <label for="BMIp">BMI:</label>
+                            <input type="number" id="BMIp" name="BMI:number" disabled /><br>
+                
+                            <label for="bLHp">bLH:</label>
+                            <input type="number" id="bLHp" name="bLH:number" min="0.0" max="20.0" /><br>
+                
+                            <label for="E2p">E2:</label>
+                            <input type="number" id="E2p" name="E2:number" min="10" max="130" /><br>
+                
+                            <label for="FSH_LHp">FSH/LH:</label>
+                            <input type="number" id="FSH_LHp" name="FSH_LH:number" min="0.0" max="23.0" disabled /><br>
+                
+                            <label for="male_agep">男方年龄:</label>
+                            <input type="number" id="male_agep" name="male_age:number" min="23" max="70" /><br>
+                
+                            <label for="past_pregnanciesp">既往活产次数:</label>
+                            <input type="number" id="past_pregnanciesp" name="past_pregnancies:number" min="0" max="3" step="1" /><br>
+
+                            <label for="is_PCOS">是否PCOS</label>
+                            <select id="is_PCOS" name="is_PCOS:number">
+                                <option value="0.0" selected>否</option>
+                                <option value="1.0">是</option>
+                            </select><br>
+
+                            <label for="PGT_evidence">PGT指征</label>
+                            <select id="PGT_evidence" name="PGT_evidence:number">
+                                <option value="1.0">RSA</option>
+                                <option value="2.0">RIF</option>
+                                <option value="3.0">不良孕产史</option>
+                                <option value="4.0">单纯高龄</option>
+                                <option value="5.0">单基因病</option>
+                                <option value="6.0" selected>其它</option>
+                            </select><br>
+                
+                            <button type="button" class="btn btn-primary" id="submit_pos_form">提交</button>
+                        </form>        
+                    </div>
+                    <div class="col-md">
+                        <table class="table">
+                            <thead>
+                              <tr>
+                                <th scope="col">起始Gn剂量</th>
+                                <th scope="col">卵子总数</th>
+                                <th scope="col">可移植胚胎数</th>
+                                <th scope="col">是否OHSS</th>
+                              </tr>
+                            </thead>
+                            <tbody id="pos_result_form">
+                                <tr>
+                                    <th>75</th>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <th>100</th>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <th>125</th>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <th>150</th>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <th>175</th>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <th>200</th>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <th>225</th>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <th>250</th>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <th>275</th>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <th>300</th>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <th>325</th>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <th>350</th>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <th>375</th>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <th>400</th>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <th>425</th>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                          </table>
+                    </div>
+                </div>
+            </div>
         <h1>预测起始剂量</h1>
         <form id="prediction-form" class="m-3">
             <label for="female_age">女方年龄<span style="color: red;">*</span>:</label>
