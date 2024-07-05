@@ -35,45 +35,37 @@
                 <div class="row">
                     <div class="col-md">
                         <form id="pos_prediction_form" class="m-3">
+
                             <label for="female_agep">女方年龄<span style="color: red;">*</span>:</label>
                             <input type="number" id="female_agep" name="female_age:number" min="21" max="46" required /><br>
+
+                            <label for="male_agep">男方年龄:</label>
+                            <input type="number" id="male_agep" name="male_age:number" min="23" max="70" /><br>
                 
                             <label for="AFCp">AFC<span style="color: red;">*</span>:</label>
                             <input type="number" id="AFCp" name="AFC:number" min="0" max="76" required /><br>
-                
-                            <label for="bFSHp">bFSH<span style="color: red;">*</span>:</label>
-                            <input type="number" id="bFSHp" name="bFSH:number" min="1.77" max="24.56" required /><br>
-                
-                            <label for="AMHp">AMH<span style="color: red;">*</span>:</label>
+
+                            <label for="AMHp">AMH(ng/ml)<span style="color: red;">*</span>:</label>
                             <input type="number" id="AMHp" name="AMH:number" min="0.05" max="23.11" required /><br>
                 
-                            <label for="stimulation_protocolp">促排方案:</label>
-                            <select id="stimulation_protocolp" name="stimulation_protocol:number">
-                                <option value="1.0">长方案</option>
-                                <option value="2.0">拮抗剂</option>
-                            </select><br>
-                
-                            <label for="heightp">身高:</label>
+                            <label for="bFSHp">bFSH(IU/L)<span style="color: red;">*</span>:</label>
+                            <input type="number" id="bFSHp" name="bFSH:number" min="1.77" max="24.56" required /><br>
+
+                            <label for="bLHp">bLH(IU/L):</label>
+                            <input type="number" id="bLHp" name="bLH:number" min="0.0" max="20.0" /><br>
+
+                            <label for="FSH_LHp">FSH/LH:</label>
+                            <input type="number" id="FSH_LHp" name="FSH_LH:number" min="0.0" max="23.0" disabled /><br>
+
+                            <label for="heightp">身高(cm):</label>
                             <input type="number" id="heightp" name="height:number" min="142" max="200" /><br>
                 
-                            <label for="weightp">体重:</label>
+                            <label for="weightp">体重(kg):</label>
                             <input type="number" id="weightp" name="weight:number" min="36" max="100" /><br>
                 
                             <label for="BMIp">BMI:</label>
                             <input type="number" id="BMIp" name="BMI:number" disabled /><br>
-                
-                            <label for="bLHp">bLH:</label>
-                            <input type="number" id="bLHp" name="bLH:number" min="0.0" max="20.0" /><br>
-                
-                            <label for="E2p">E2:</label>
-                            <input type="number" id="E2p" name="E2:number" min="10" max="130" /><br>
-                
-                            <label for="FSH_LHp">FSH/LH:</label>
-                            <input type="number" id="FSH_LHp" name="FSH_LH:number" min="0.0" max="23.0" disabled /><br>
-                
-                            <label for="male_agep">男方年龄:</label>
-                            <input type="number" id="male_agep" name="male_age:number" min="23" max="70" /><br>
-                
+
                             <label for="past_pregnanciesp">既往活产次数:</label>
                             <input type="number" id="past_pregnanciesp" name="past_pregnancies:number" min="0" max="3" step="1" /><br>
 
@@ -93,6 +85,15 @@
                                 <option value="6.0" selected>其它</option>
                             </select><br>
                 
+                            <label for="stimulation_protocolp">促排方案:</label>
+                            <select id="stimulation_protocolp" name="stimulation_protocol:number">
+                                <option value="1.0">长方案</option>
+                                <option value="2.0">拮抗剂</option>
+                            </select><br>
+                
+                            <label for="E2p">E2(ng/ml):</label>
+                            <input type="number" id="E2p" name="E2:number" min="10" max="130" /><br>
+                            
                             <button type="button" class="btn btn-primary" id="submit_pos_form">提交</button>
                         </form>        
                     </div>
@@ -107,12 +108,6 @@
                               </tr>
                             </thead>
                             <tbody id="pos_result_form">
-                                <tr>
-                                    <th>75</th>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
                                 <tr>
                                     <th>100</th>
                                     <td></td>
@@ -210,10 +205,10 @@
             <label for="AFC">AFC<span style="color: red;">*</span>:</label>
             <input type="number" id="AFC" name="AFC:number" min="0" required /><br>
 
-            <label for="bFSH">bFSH<span style="color: red;">*</span>:</label>
+            <label for="bFSH">bFSH(IU/L)<span style="color: red;">*</span>:</label>
             <input type="number" id="bFSH" name="bFSH:number" min="0" required /><br>
 
-            <label for="AMH">AMH<span style="color: red;">*</span>:</label>
+            <label for="AMH">AMH(ng/ml)<span style="color: red;">*</span>:</label>
             <input type="number" id="AMH" name="AMH:number" min="0" required /><br>
 
             <label for="stimulation_protocol">促排方案:</label>
@@ -222,19 +217,19 @@
                 <option value="2.0">拮抗剂</option>
             </select><br>
 
-            <label for="height">身高:</label>
+            <label for="height">身高(cm):</label>
             <input type="number" id="height" name="height:number" min="0" /><br>
 
-            <label for="weight">体重:</label>
+            <label for="weight">体重(kg):</label>
             <input type="number" id="weight" name="weight:number" min="0" /><br>
 
             <label for="BMI">BMI:</label>
             <input type="number" id="BMI" name="BMI:number" min="0" disabled /><br>
 
-            <label for="bLH">bLH:</label>
+            <label for="bLH">bLH(IU/L):</label>
             <input type="number" id="bLH" name="bLH:number" min="0" /><br>
 
-            <label for="E2">E2:</label>
+            <label for="E2">E2(ng/ml):</label>
             <input type="number" id="E2" name="E2:number" min="0" /><br>
 
             <label for="FSH_LH">FSH/LH:</label>
@@ -262,10 +257,10 @@
             <label for="AFC4">AFC<span style="color: red;">*</span>:</label>
             <input type="number" id="AFC4" name="AFC:number" min="0" required /><br>
 
-            <label for="bFSH4">bFSH<span style="color: red;">*</span>:</label>
+            <label for="bFSH4">bFSH(IU/L)<span style="color: red;">*</span>:</label>
             <input type="number" id="bFSH4" name="bFSH:number" min="0" required /><br>
 
-            <label for="AMH4">AMH<span style="color: red;">*</span>:</label>
+            <label for="AMH4">AMH(ng/ml)<span style="color: red;">*</span>:</label>
             <input type="number" id="AMH4" name="AMH:number" min="0" required /><br>
 
             <label for="stimulation-protocol4">促排方案:</label>
@@ -274,19 +269,19 @@
                 <option value="2.0">拮抗剂</option>
             </select><br>
 
-            <label for="height4">身高:</label>
+            <label for="height4">身高(cm):</label>
             <input type="number" id="height4" name="height:number" min="0" /><br>
 
-            <label for="weight4">体重:</label>
+            <label for="weight4">体重(kg):</label>
             <input type="number" id="weight4" name="weight:number" min="0" /><br>
 
             <label for="BMI4">BMI:</label>
             <input type="number" id="BMI4" name="BMI:number" min="0" disabled /><br>
 
-            <label for="bLH4">bLH:</label>
+            <label for="bLH4">bLH(IU/L):</label>
             <input type="number" id="bLH4" name="bLH:number" min="0" /><br>
 
-            <label for="E24">E2:</label>
+            <label for="E24">E2(ng/ml):</label>
             <input type="number" id="E24" name="E2:number" min="0" /><br>
 
             <label for="FSH_LH4">FSH/LH:</label>
@@ -340,84 +335,6 @@
             <div>初始剂量：<span id="s1s2_fsh_result"></span></div>
         </form>
 
-        <!-- <h1>预测卵子总数与起始剂量</h1>
-        <form id="s1s2-prediction-form" class="m-3">
-            <label for="female-age3">女方年龄<span style="color: red;">*</span>:</label>
-            <input type="number" id="female-age3" name="female_age:number" min="0" max="100" required /><br>
-
-            <label for="AFC3">AFC<span style="color: red;">*</span>:</label>
-            <input type="number" id="AFC3" name="AFC:number" min="0" required /><br>
-
-            <label for="bFSH3">bFSH<span style="color: red;">*</span>:</label>
-            <input type="number" id="bFSH3" name="bFSH:number" min="0" required /><br>
-
-            <label for="AMH3">AMH<span style="color: red;">*</span>:</label>
-            <input type="number" id="AMH3" name="AMH:number" min="0" required /><br>
-
-            <label for="stimulation-protocol3">促排方案:</label>
-            <select id="stimulation-protocol3" name="stimulation_protocol:number">
-                <option value="1.0">长方案</option>
-                <option value="2.0">拮抗剂</option>
-            </select><br>
-
-            <label for="height3">身高:</label>
-            <input type="number" id="height3" name="height:number" min="0" /><br>
-
-            <label for="weight3">体重:</label>
-            <input type="number" id="weight3" name="weight:number" min="0" /><br>
-
-            <label for="BMI3">BMI:</label>
-            <input type="number" id="BMI3" name="BMI:number" min="0" disabled /><br>
-
-            <label for="bLH3">bLH:</label>
-            <input type="number" id="bLH3" name="bLH:number" min="0" /><br>
-
-            <label for="E23">E2:</label>
-            <input type="number" id="E23" name="E2:number" min="0" /><br>
-
-            <label for="FSH_LH3">FSH/LH:</label>
-            <input type="number" id="FSH_LH3" name="FSH_LH:number" min="0" disabled /><br>
-
-            <label for="male-age3">男方年龄:</label>
-            <input type="number" id="male-age3" name="male_age:number" min="0" max="100" /><br>
-
-            <label for="past-pregnancies3">既往活产次数:</label>
-            <input type="number" id="past-pregnancies3" name="past_pregnancies:number" min="0" step="1" /><br>
-
-            <label for="oocytes_transfer3">可移植胚胎数<span style="color: red;">*</span>:</label>
-            <select id="oocytes_transfer3" name="oocytes_transfer:number">
-                <option value="1.0" selected>1</option>
-                <option value="2.0">2</option>
-                <option value="3.0">3</option>
-                <option value="4.0">4</option>
-                <option value="5.0">5</option>
-                <option value="6.0">6</option>
-            </select><br>
-
-            <label for="is_OHSS">是否中重度OHSS:</label>
-            <select id="is_OHSS" name="is_OHSS:number" disabled>
-                <option value="1.0">是</option>
-                <option value="0.0" selected>否</option>
-            </select><br>
-
-            <label for="total_oocytes_lt25">卵子总数是否≤25:</label>
-            <select id="total_oocytes_lt25" name="total_oocytes_lt25:number" disabled>
-                <option value="1.0" selected>是</option>
-                <option value="0.0">否</option>
-            </select><br>
-
-            <button type="button" class="btn btn-primary" id="s1s2-submit-button">预测初始剂量</button>
-            <div>卵子总数：<span id="s1s2_eggs_result"></span></div>
-            <div>初始剂量：<span id="s1s2_fsh_result"></span></div>
-        </form> -->
-      
-
-        
-        
-        <!-- <div class="prop_result">可移植胚胎数=0概率:<span id="prop_e0_result"></span></div>
-    <div class="prop_result">可移植胚胎数=1概率:<span id="prop_e1_result"></span></div>
-    <div class="prop_result">可移植胚胎数≥2概率:<span id="prop_ge2_result"></span></div> -->
-
         <h1>POvaStim方案预测卵子数与起始剂量</h1>
         <form id="dual-prediction-form" class="m-3">
             <label for="female-age2">女方年龄<span style="color: red;">*</span>:</label>
@@ -426,10 +343,10 @@
             <label for="AFC2">AFC<span style="color: red;">*</span>:</label>
             <input type="number" id="AFC2" name="AFC:number" min="0" required /><br>
 
-            <label for="bFSH2">bFSH<span style="color: red;">*</span>:</label>
+            <label for="bFSH2">bFSH(IU/L)<span style="color: red;">*</span>:</label>
             <input type="number" id="bFSH2" name="bFSH:number" min="0" required /><br>
 
-            <label for="AMH2">AMH<span style="color: red;">*</span>:</label>
+            <label for="AMH2">AMH(ng/ml)<span style="color: red;">*</span>:</label>
             <input type="number" id="AMH2" name="AMH:number" min="0" required /><br>
 
             <label for="stimulation-protocol2">促排方案:</label>
@@ -438,19 +355,19 @@
                 <option value="2.0">拮抗剂</option>
             </select><br>
 
-            <label for="height2">身高:</label>
+            <label for="height2">身高(cm):</label>
             <input type="number" id="height2" name="height:number" min="0" /><br>
 
-            <label for="weight2">体重:</label>
+            <label for="weight2">体重(kg):</label>
             <input type="number" id="weight2" name="weight:number" min="0" /><br>
 
             <label for="BMI2">BMI:</label>
             <input type="number" id="BMI2" name="BMI:number" min="0" disabled /><br>
 
-            <label for="bLH2">bLH:</label>
+            <label for="bLH2">bLH(IU/L):</label>
             <input type="number" id="bLH2" name="bLH:number" min="0" /><br>
 
-            <label for="E22">E2:</label>
+            <label for="E22">E2(ng/ml):</label>
             <input type="number" id="E22" name="E2:number" min="0" /><br>
 
             <label for="FSH_LH2">FSH/LH:</label>

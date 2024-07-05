@@ -209,7 +209,7 @@ async def prop(input_data: PosModel1InputData):
     '''
     input_list = [getattr(input_data, field) for field in  input_data.__fields__]
     input_list.append(0)
-    gn_doses = np.arange(75, 476, 25, float)
+    gn_doses = np.arange(100, 476, 25, float)
     input = np.tile(np.array(input_list), (len(gn_doses), 1))
     input[:, len(input_list) - 1] = gn_doses
     result = pos_model_1.predict(input)
@@ -222,7 +222,7 @@ async def prop(input_data: PosModel2InputData):
     '''
     input_list = [getattr(input_data, field) for field in  input_data.__fields__]
     input_list.append(0)
-    gn_doses = np.arange(75, 476, 25, float)
+    gn_doses = np.arange(100, 476, 25, float)
     input = np.tile(np.array(input_list), (len(gn_doses), 1))
     input[:, len(input_list) - 1] = gn_doses
     result = pos_model_2.predict(input)
@@ -235,7 +235,7 @@ async def prop(input_data: PosModel3InputData):
     '''
     input_list = [getattr(input_data, field) for field in  input_data.__fields__]
     input_list.append(0)
-    gn_doses = np.arange(75, 476, 25, float)
+    gn_doses = np.arange(100, 476, 25, float)
     input = np.tile(np.array(input_list), (len(gn_doses), 1))
     input[:, len(input_list) - 1] = gn_doses
     result = pos_model_3.predict(input)
